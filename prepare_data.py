@@ -272,7 +272,7 @@ class DataPreparer():
 
     def prepare_data(self) -> None:
 
-        logger.info("Save Movie Info")
+        logger.info("Saving Movie Info")
         self.save_movie_info()
 
         logger.info("Encoding Features")
