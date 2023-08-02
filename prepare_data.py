@@ -272,10 +272,10 @@ class DataPreparer():
 
     def prepare_data(self) -> None:
 
-        logger.info("Saving Movie Info")
+        logger.info("Saving movie info")
         self.save_movie_info()
 
-        logger.info("Encoding Features")
+        logger.info("Encoding features")
         self.encode_features()
 
         logger.info("Transforming to sequence")
