@@ -21,20 +21,12 @@ python train.py
 
 ## Run Using Docker Container
 ```sh
-docker build . -t bst-movielens1m-recommender-training:latest  --platform linux/amd64
-```
-
-docker.env
-```sh
-AWS_DEFAULT_REGION=
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-ENV=dev
+docker build . -t bst-movielens1m-recommender-training:latest  --platform linux/arm64/v8
 ```
 
 ```sh
 docker run -it \
-        --env-file docker.env \
+        --env-file .env \
         --cpus=4 \
         --shm-size=4g bst-movielens1m-recommender-training:latest \
         --artifact_dir "./artifacts" \
