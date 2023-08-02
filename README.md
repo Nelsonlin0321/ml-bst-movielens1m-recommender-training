@@ -16,7 +16,16 @@ ENV=dev
 python -m venv venv
 source venv/bin/activate
 pip install requirements.txt
-python train.py
+python train.py --artifact_dir "./artifacts" \
+                --model_save_dir "./models" \
+                --sequence_length 6 \
+                --test_size 0.85 \
+                --genres_length 4 \
+                --embedding_dim 32 \
+                --dropout 0.2 \
+                --epoches 5 \
+                --learning_rate 0.001 \
+                --batch_size 128
 ```
 
 ## Run Using Docker Container
