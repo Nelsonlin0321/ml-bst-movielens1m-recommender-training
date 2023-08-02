@@ -46,6 +46,21 @@ class DataPreparer():
         self.train_data = None
         self.test_data = None
 
+    def save_movie_info(self):
+
+        movies_info = self.movies.copy()
+        movies_info['release_year'] = movies_info['title'].apply(
+            lambda x: data_utils.extract_release_year(x))
+
+        movies_info['genres'] = movies_info['genres'].apply(
+            lambda x: x.split("|"))
+
+        movies_info['origin_title'] = movies_info['title'].apply(
+            lambda x: data_utils.get_origin_title(x))
+
+        movies_info.to_parquet(os.path.join(
+            self.artifact_dir, "movie_info.parquet"))
+
     def encode_features(self) -> None:
         """ To encode the features 
 
@@ -255,6 +270,9 @@ class DataPreparer():
         self.test_data = test_data
 
     def prepare_data(self) -> None:
+
+        logger.info("Save Movie Info")
+        self.save_movie_info()
 
         logger.info("Encoding Features")
         self.encode_features()

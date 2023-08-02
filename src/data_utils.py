@@ -1,3 +1,4 @@
+import re
 import pandas as pd
 from zipfile import ZipFile
 from urllib.request import urlretrieve
@@ -116,3 +117,16 @@ def generate_sequence_data(input_sequences_data, sequence_length=2):
     )
 
     return output_sequences_data
+
+
+def extract_release_year(title):
+    pattern = r"\((\d{4})\)"
+
+    match = re.search(pattern, title)
+    year = match.group(1)
+    return int(year)
+
+
+def get_origin_title(title):
+    pattern = r"\s*\(\d{4}\)"
+    return re.sub(pattern, "", title)
