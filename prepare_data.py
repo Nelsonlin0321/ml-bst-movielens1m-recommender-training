@@ -35,6 +35,7 @@ parser.add_argument('--genres_length', type=int, required=False,
 class DataPreparer():
     def __init__(self, artifact_dir, sequence_length, test_size, genres_length) -> None:
         self.artifact_dir = artifact_dir
+        os.makedirs(self.artifact_dir, exist_ok=True)
         self.sequence_length = sequence_length
         self.test_size = test_size
         self.genres_length = genres_length

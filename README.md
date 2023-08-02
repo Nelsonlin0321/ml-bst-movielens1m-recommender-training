@@ -28,7 +28,7 @@ python train.py --artifact_dir "./artifacts" \
                 --genres_length 4 \
                 --embedding_dim 32 \
                 --dropout 0.2 \
-                --epoches 5 \
+                --epoches 3 \
                 --learning_rate 0.001 \
                 --batch_size 128
 ```
@@ -50,7 +50,7 @@ docker run -it \
         --genres_length 4 \
         --embedding_dim 32 \
         --dropout 0.2 \
-        --epoches 5 \
+        --epoches 3 \
         --learning_rate 0.001 \
         --batch_size 128
 ```
