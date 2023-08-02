@@ -53,7 +53,7 @@ parser.add_argument('--sequence_length', type=int, required=False,
                     default=6, help="the length of sequence to genreate")
 parser.add_argument('--test_size', type=float, required=False,
                     default=0.85, help="percentage of test data to allocate")
-parser.add_argument('--genres_length', type=float, required=False,
+parser.add_argument('--genres_length', type=int, required=False,
                     default=4, help="the length of genres sequence to pad")
 parser.add_argument('--embedding_dim', type=int, required=False,
                     default=32, help="The number of dimension for embedding")
