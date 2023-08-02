@@ -8,7 +8,7 @@ define env in .env file
 ```sh
 # Mlflow tracking url
 TRACKING_URL=
-# experiment name
+# Mlflow experiment name
 EXPERIMENT_NAME=bst-movielens1m-recommender-training
 AWS_DEFAULT_REGION=
 AWS_ACCESS_KEY_ID=
