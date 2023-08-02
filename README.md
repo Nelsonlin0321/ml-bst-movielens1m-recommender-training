@@ -16,6 +16,7 @@ ENV=dev
 python -m venv venv
 source venv/bin/activate
 pip install requirements.txt
+pip install torch --index-url https://download.pytorch.org/whl/cpu
 python train.py --artifact_dir "./artifacts" \
                 --model_save_dir "./models" \
                 --sequence_length 6 \
