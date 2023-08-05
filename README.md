@@ -1,4 +1,10 @@
-# ml-bst-movielens1m-recommender-training
+# Movielens 1m Movie Recommendation Based on  Behavior Sequence Transformer Model
+
+This repository is to implement the behavior sequence transformer model proposed by Alibaba, which can be found in this paper: https://arxiv.org/abs/1905.06874.
+
+![](images/bst.png)
+
+We use the 1M version of the Movielens dataset. We assume that in the inference stage the user is anonymous and without rating history, therefore we don't use them as features. We can refer to this github: https://github.com/Nelsonlin0321/ml-behavior-sequence-transformer-for-movie-recommendation for tutorial purpose of how impletment behavior sequence transformer model
 
 
 ## Run It Locally
