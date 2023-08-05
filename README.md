@@ -4,7 +4,7 @@ This repository is to implement the behavior sequence transformer model proposed
 
 ![](images/bst.png)
 
-We use the 1M version of the Movielens dataset. However, we assume that in the inference stage the users are anonymous and without rating history, therefore we don't use them as features. We can refer to this github: https://github.com/Nelsonlin0321/ml-behavior-sequence-transformer-for-movie-recommendation for tutorial purpose of how impletment behavior sequence transformer model with all features.
+We use the 1M version of the Movielens dataset. However, we assume that in the inference stage the users are anonymous and without rating history, therefore we don't use them as features. We can refer to this github: https://github.com/Nelsonlin0321/ml-behavior-sequence-transformer-for-movie-recommendation for tutorial purpose of how to impletment behavior sequence transformer model with all features.
 
 
 ## Run It Locally
