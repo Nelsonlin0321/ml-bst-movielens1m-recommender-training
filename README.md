@@ -23,7 +23,7 @@ pip install requirements.txt
 pip install torch --index-url https://download.pytorch.org/whl/cpu
 python train.py --artifact_dir "./artifacts" \
                 --model_save_dir "./models" \
-                --sequence_length 6 \
+                --sequence_length 9 \
                 --test_size 0.85 \
                 --genres_length 4 \
                 --embedding_dim 128 \
@@ -45,7 +45,7 @@ docker run -it \
         --shm-size=4g bst-movielens1m-recommender-training:latest \
         --artifact_dir "./artifacts" \
         --model_save_dir "./models" \
-        --sequence_length 6 \
+        --sequence_length 9 \
         --test_size 0.85 \
         --genres_length 4 \
         --embedding_dim 128 \
