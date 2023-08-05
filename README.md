@@ -26,11 +26,11 @@ python train.py --artifact_dir "./artifacts" \
                 --sequence_length 6 \
                 --test_size 0.85 \
                 --genres_length 4 \
-                --embedding_dim 32 \
-                --dropout 0.2 \
+                --embedding_dim 128 \
+                --dropout 0.3 \
                 --epoches 3 \
                 --learning_rate 0.001 \
-                --batch_size 128
+                --batch_size 256
 ```
 
 ## Run Using Docker Container
@@ -48,10 +48,15 @@ docker run -it \
         --sequence_length 6 \
         --test_size 0.85 \
         --genres_length 4 \
-        --embedding_dim 32 \
-        --dropout 0.2 \
+        --embedding_dim 128 \
+        --dropout 0.3 \
         --epoches 3 \
         --learning_rate 0.001 \
-        --batch_size 128
+        --batch_size 256
 ```
+
+## Mlflow Experiments
+We choose the relatively low MEA with smaller sequence length due to cost-effective consideration
+<img src='images/mlflow.png'><img>
+
 
