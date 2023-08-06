@@ -19,7 +19,6 @@ EXPERIMENT_NAME=bst-movielens1m-recommender-training
 AWS_DEFAULT_REGION=
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
-ENV=dev
 ```
 
 ```sh
@@ -37,7 +36,9 @@ python train.py --artifact_dir "./artifacts" \
                 --epoches 4 \
                 --learning_rate 0.001 \
                 --batch_size 256
+                --env "test" 
 ```
+
 
 ## Run Using Docker Container
 ```sh
@@ -59,7 +60,14 @@ docker run -it \
         --epoches 4 \
         --learning_rate 0.001 \
         --batch_size 256
+        --env "test" 
 ```
+or 
+
+```sh
+docker compose up
+```
+
 
 ## Mlflow Experiments
 We choose the relatively low MEA with smaller sequence length due to cost-effective consideration

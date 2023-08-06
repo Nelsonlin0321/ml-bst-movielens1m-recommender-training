@@ -1,0 +1,22 @@
+version: '3'
+services:
+  bst-movielens1m-recommender-training:
+    image: bst-movielens1m-recommender-training-pipeline:latest
+    env_file: ./.env
+    cpus: 4
+    shm_size: 4g
+    environment:
+      - TRACKING_UR="http://175.41.182.223:5050/"
+      - EXPERIMENT_NAME="bst-movielens1m-recommender-training"
+    command: >
+        --artifact_dir "./artifacts" \
+        --model_save_dir "./models" \
+        --sequence_length 9 \
+        --test_size 0.85 \
+        --genres_length 4 \
+        --embedding_dim 128 \
+        --dropout 0.3 \
+        --epoches 4 \
+        --learning_rate 0.001 \
+        --batch_size 256
+        --env 'prod'
