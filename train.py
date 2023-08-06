@@ -20,15 +20,18 @@ from src.dataset import RatingDataset
 from src.model import BSTRecommenderModel
 from src.eval import evaluate
 from prepare_data import DataPreparer
-from prefect import flow, task
-
+from prefect import flow, task, get_run_logger
 import argparse
-import logging
-logging.basicConfig(format='%(asctime)s, %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
-                    datefmt='%Y-%m-%d:%H:%M:%S',
-                    level=logging.INFO)
 
-logger = logging.getLogger(__name__)
+# import logging
+# logging.basicConfig(format='%(asctime)s, %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
+#                     datefmt='%Y-%m-%d:%H:%M:%S',
+#                     level=logging.INFO)
+
+# logger = logging.getLogger(__name__)
+
+logger = get_run_logger()
+
 
 dotenv.load_dotenv("./.env")
 
@@ -255,7 +258,7 @@ def train(args, data_preparer):
 
     env = args.env
 
-    if env == 'test':
+    if str(env) == 'test':
         sample_size_for_testing = 10000
         train_data = train_data.head(sample_size_for_testing)
         test_data = test_data.head(sample_size_for_testing)
@@ -328,6 +331,8 @@ def bst_movielens1m_recommender_training_pipeline(env=None, dropout=None,
 
     if sequence_length is not None:
         args.sequence_length = sequence_length
+
+    assert str(args.env) in ['test', 'dev', 'prod']
 
     data_preparer = prepare_data(args=args)
     train(args=args, data_preparer=data_preparer)
