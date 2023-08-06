@@ -73,6 +73,9 @@ Artifacts S3 Path: s3://s3-mlflow-artifacts-storage/mlflow/15/7697d9cdf0f341f8ad
 
 ## Prefect Orchestraction Deployment:
 
+- 1.config prefect.yaml file
+
+- 2.deployment
 ```sh
 prefect deploy
 prefect worker start --pool 'zooncamp-work-pool'

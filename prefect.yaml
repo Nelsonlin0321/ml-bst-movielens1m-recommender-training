@@ -17,7 +17,7 @@ push: null
 
 # pull section allows you to provide instructions for cloning this project in remote locations
 pull:
-- git clone:
+- prefect.projects.steps.git_clone:
     repository: git@github.com:Nelsonlin0321/ml-bst-movielens1m-recommender-training.git
     branch: main
     access_token: null
