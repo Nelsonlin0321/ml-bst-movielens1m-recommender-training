@@ -1,0 +1,49 @@
+# File for configuring project / deployment build, push and pull steps
+
+# Generic metadata about this project
+name: ml-bst-movielens1m-recommender-training
+prefect-version: 2.10.6
+
+# build section allows you to manage and build docker images
+build:
+- prefect_docker.projects.steps.build_docker_image:
+    requires: prefect-docker>0.1.0
+    image_name: bst-movielens1m-recommender-training-pipeline
+    tag: latest 
+    dockerfile: Dockerfile
+
+# push section allows you to manage if and how this project is uploaded to remote locations
+push: null
+
+# pull section allows you to provide instructions for cloning this project in remote locations
+pull:
+- prefect.deployments.steps.git_clone:
+    repository: git@github.com:Nelsonlin0321/ml-bst-movielens1m-recommender-training.git
+    branch: main
+    access_token: null
+
+deployments:
+- name: ml-bst-movielens1m-recommender-training
+  version: 1.0.0
+  tags: ["production","recommender"]
+  description: "Deployment of the MovieLens 1M Recommender Training pipeline"
+  schedule: {}
+  flow_name: null
+  entrypoint: train.py:bst_movielens1m_recommender_training_pipeline
+  parameters: 
+    artifact_dir: "artifacts"
+    model_save_dir: "models"
+    env: "prod"
+    sequence_length: 9
+    test_size: 0.85
+    genres_length: 4
+    embedding_dim: 128
+    dropout: 0.3
+    epoches: 1
+    learning_rate: 0.001
+    batch_size: 256
+  work_pool:
+    name: zooncamp-work-pool
+    work_queue_name: default
+    job_variable:
+      image: bst-movielens1m-recommender-training-pipeline

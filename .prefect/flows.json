@@ -1,0 +1,3 @@
+{
+  "bst-movielens1m-recommender-training-pipeline": "train.py:bst_movielens1m_recommender_training_pipeline"
+}

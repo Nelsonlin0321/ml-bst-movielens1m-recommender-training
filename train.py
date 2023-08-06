@@ -20,13 +20,18 @@ from src.dataset import RatingDataset
 from src.model import BSTRecommenderModel
 from src.eval import evaluate
 from prepare_data import DataPreparer
+from prefect import flow, task
 import argparse
 import logging
+
 logging.basicConfig(format='%(asctime)s, %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
                     datefmt='%Y-%m-%d:%H:%M:%S',
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
+
+# logger = get_run_logger()
+
 
 dotenv.load_dotenv("./.env")
 
@@ -40,7 +45,6 @@ if torch.cuda.is_available():
 TRACKING_URL = os.getenv("TRACKING_URL", "http://175.41.182.223:5050/")
 EXPERIMENT_NAME = os.getenv(
     "EXPERIMENT_NAME", "bst-movielens1m-recommender-training")
-ENV = os.getenv("ENV", "dev")
 
 parser = argparse.ArgumentParser(
     description='Training BST model for movie recommendation')
@@ -65,6 +69,8 @@ parser.add_argument('--learning_rate', type=float, required=False,
                     default=0.001, help="Learning Rate")
 parser.add_argument('--batch_size', type=int, required=False,
                     default=128, help="Batch Size")
+parser.add_argument('--env', type=str, required=False,
+                    default="dev", help="test,dev and prod for env setting")
 
 
 def get_config(data_preparer: DataPreparer, args) -> Config:
@@ -91,6 +97,7 @@ def get_config(data_preparer: DataPreparer, args) -> Config:
     config_dict["batch_size"] = args.batch_size
     config_dict["sequence_length"] = data_preparer.sequence_length
     config_dict["device"] = "cuda" if torch.cuda.is_available() else "cpu"
+    config_dict["env"] = args.env
 
     utils.save_json(config_dict, os.path.join(
         args.artifact_dir, "config.json"))
@@ -98,10 +105,6 @@ def get_config(data_preparer: DataPreparer, args) -> Config:
     config = utils.Config(dict=config_dict)
 
     return config
-
-# if ENV == 'Test':
-#     train_data = train_data.head(1000)
-#     test_data = test_data.head(1000)
 
 
 class Trainer():
@@ -152,8 +155,7 @@ class Trainer():
         metrics_list = []
         best_model_path = None
         with mlflow.start_run():
-
-            mlflow.set_tag("ENV", ENV)
+            mlflow.set_tag("ENV", self.config.env)
             mlflow.log_params(self.config.dict)
             mlflow.log_artifact("./src", artifact_path="")
             mlflow.log_artifact(self.artifact_dir, artifact_path="")
@@ -247,25 +249,16 @@ class Trainer():
         return best_model_path
 
 
-if __name__ == "__main__":
-
-    args = parser.parse_args()
-    artifact_dir = args.artifact_dir
-    sequence_length = args.sequence_length
-    val_size = args.test_size
-    genres_length = args.genres_length
-
-    data_preparer = DataPreparer(artifact_dir=artifact_dir, sequence_length=sequence_length,
-                                 test_size=val_size, genres_length=genres_length)
-
-    data_preparer.prepare_data()
-
+@task(log_prints=True)
+def train(args, data_preparer):
     model_config = get_config(data_preparer, args)
 
     train_data = data_preparer.train_data
     test_data = data_preparer.test_data
 
-    if ENV == 'test':
+    env = args.env
+
+    if str(env) == 'test':
         sample_size_for_testing = 10000
         train_data = train_data.head(sample_size_for_testing)
         test_data = test_data.head(sample_size_for_testing)
@@ -276,3 +269,76 @@ if __name__ == "__main__":
                       artifact_dir=args.artifact_dir, model_save_dir=args.model_save_dir)
 
     trainer.train()
+
+
+@task(log_prints=True)
+def prepare_data(args):
+    artifact_dir = args.artifact_dir
+    sequence_length = args.sequence_length
+    val_size = args.test_size
+    genres_length = args.genres_length
+    data_preparer = DataPreparer(artifact_dir=artifact_dir, sequence_length=sequence_length,
+                                 test_size=val_size, genres_length=genres_length)
+
+    data_preparer.prepare_data()
+    return data_preparer
+
+
+@flow(log_prints=True)
+def bst_movielens1m_recommender_training_pipeline(artifact_dir=None,
+                                                  model_save_dir=None,
+                                                  env=None,
+                                                  sequence_length=None,
+                                                  test_size=None,
+                                                  genres_length=None,
+                                                  embedding_dim=None,
+                                                  dropout=None,
+                                                  epoches=None,
+                                                  learning_rate=None,
+                                                  batch_size=None):
+
+    args = parser.parse_args()
+
+    if env is not None:
+        args.env = env
+
+    print(f"Execution Env: {args.env}")
+
+    if dropout is not None:
+        args.dropout = dropout
+
+    if epoches is not None:
+        args.epoches = epoches
+
+    if test_size is not None:
+        args.test_size = test_size
+
+    if batch_size is not None:
+        args.batch_size = batch_size
+
+    if artifact_dir is not None:
+        args.artifact_dir = artifact_dir
+
+    if genres_length is not None:
+        args.genres_length = genres_length
+
+    if embedding_dim is not None:
+        args.embedding_dim = embedding_dim
+
+    if learning_rate is not None:
+        args.learning_rate = learning_rate
+
+    if model_save_dir is not None:
+        args.model_save_dir = model_save_dir
+
+    if sequence_length is not None:
+        args.sequence_length = sequence_length
+
+    assert args.env in ['test', 'dev', 'prod']
+
+    data_preparer = prepare_data(args=args)
+    train(args=args, data_preparer=data_preparer)
+
+
+if __name__ == "__main__":
+    bst_movielens1m_recommender_training_pipeline()
