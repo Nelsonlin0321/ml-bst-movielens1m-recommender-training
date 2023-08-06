@@ -320,13 +320,10 @@ def bst_movielens1m_recommender_training_pipeline(artifact_dir=None,
         args.artifact_dir = artifact_dir
 
     if genres_length is not None:
-        args.env = genres_length
+        args.genres_lengthenv = genres_length
 
     if embedding_dim is not None:
-        args.env = embedding_dim
-
-    if embedding_dim is not None:
-        args.env = embedding_dim
+        args.embedding_dim = embedding_dim
 
     if learning_rate is not None:
         args.learning_rate = learning_rate
@@ -337,10 +334,7 @@ def bst_movielens1m_recommender_training_pipeline(artifact_dir=None,
     if sequence_length is not None:
         args.sequence_length = sequence_length
 
-    print(str(args.env))
-    print(type(args.env))
-    print(type(str(args.env)))
-    print(str(args.env) in ['test', 'dev', 'prod'])
+    assert args.env in ['test', 'dev', 'prod']
 
     data_preparer = prepare_data(args=args)
     train(args=args, data_preparer=data_preparer)
