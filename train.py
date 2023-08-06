@@ -20,17 +20,17 @@ from src.dataset import RatingDataset
 from src.model import BSTRecommenderModel
 from src.eval import evaluate
 from prepare_data import DataPreparer
-from prefect import flow, task, get_run_logger
+from prefect import flow, task
 import argparse
+import logging
 
-# import logging
-# logging.basicConfig(format='%(asctime)s, %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
-#                     datefmt='%Y-%m-%d:%H:%M:%S',
-#                     level=logging.INFO)
+logging.basicConfig(format='%(asctime)s, %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
+                    datefmt='%Y-%m-%d:%H:%M:%S',
+                    level=logging.INFO)
 
-# logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
-logger = get_run_logger()
+# logger = get_run_logger()
 
 
 dotenv.load_dotenv("./.env")
