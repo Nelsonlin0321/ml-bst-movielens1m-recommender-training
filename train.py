@@ -294,8 +294,7 @@ def bst_movielens1m_recommender_training_pipeline(env=None, dropout=None,
     if env is not None:
         args.env = env
 
-    print("customized env", args.env)
-    print("final env", args.env)
+    print("Execution Env: {args.env}")
 
     if dropout is not None:
         args.dropout = dropout
@@ -330,7 +329,6 @@ def bst_movielens1m_recommender_training_pipeline(env=None, dropout=None,
     if sequence_length is not None:
         args.sequence_length = sequence_length
 
-    assert args.env in ['test', 'dev', 'prod']
     data_preparer = prepare_data(args=args)
     train(args=args, data_preparer=data_preparer)
 
