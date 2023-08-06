@@ -285,12 +285,17 @@ def prepare_data(args):
 
 
 @flow(log_prints=True)
-def bst_movielens1m_recommender_training_pipeline(env=None, dropout=None,
-                                                  epoches=None, test_size=None,
-                                                  batch_size=None, artifact_dir=None,
-                                                  embedding_dim=None, genres_length=None,
-                                                  learning_rate=None, model_save_dir=None,
-                                                  sequence_length=None, **kwargs):
+def bst_movielens1m_recommender_training_pipeline(artifact_dir=None,
+                                                  model_save_dir=None,
+                                                  env=None,
+                                                  sequence_length=None,
+                                                  test_size=None,
+                                                  genres_length=None,
+                                                  embedding_dim=None,
+                                                  dropout=None,
+                                                  epoches=None,
+                                                  learning_rate=None,
+                                                  batch_size=None):
 
     args = parser.parse_args()
 
@@ -334,6 +339,7 @@ def bst_movielens1m_recommender_training_pipeline(env=None, dropout=None,
 
     print(str(args.env))
     print(type(args.env))
+    print(type(str(args.env)))
     print(str(args.env) in ['test', 'dev', 'prod'])
 
     data_preparer = prepare_data(args=args)
