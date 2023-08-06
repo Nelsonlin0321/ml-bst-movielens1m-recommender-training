@@ -81,3 +81,17 @@ prefect deploy
 prefect worker start --pool 'zooncamp-work-pool'
 prefect deployment run 'bst-movielens1m-recommender-training-pipeline/ml-bst-movielens1m-recommender-training'
 ```
+
+# Unit Test
+
+```sh
+pytest
+```
+
+# Integration Test
+
+```sh
+cd ./integration-test
+docker compose up
+
+```
