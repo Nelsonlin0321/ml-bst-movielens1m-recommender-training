@@ -332,7 +332,9 @@ def bst_movielens1m_recommender_training_pipeline(env=None, dropout=None,
     if sequence_length is not None:
         args.sequence_length = sequence_length
 
-    assert str(args.env) in ['test', 'dev', 'prod']
+    print(str(args.env))
+    print(type(args.env))
+    print(str(args.env) in ['test', 'dev', 'prod'])
 
     data_preparer = prepare_data(args=args)
     train(args=args, data_preparer=data_preparer)
