@@ -82,6 +82,9 @@ prefect worker start --pool 'zooncamp-work-pool'
 prefect deployment run 'bst-movielens1m-recommender-training-pipeline/ml-bst-movielens1m-recommender-training'
 ```
 
+![](images/prefect-orchestraction.png)
+
+
 ## Unit Test
 
 ```sh
