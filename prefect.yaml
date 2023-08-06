@@ -19,13 +19,13 @@ push: null
 pull:
 - git clone:
     repository: git@github.com:Nelsonlin0321/ml-bst-movielens1m-recommender-training.git
-    branch: dev/prefect
+    branch: main
     access_token: null
 
 deployments:
 - name: ml-bst-movielens1m-recommender-training
   version: 1.0.0
-  tags: ["test","recommender"]
+  tags: ["production","recommender"]
   description: "Deployment of the MovieLens 1M Recommender Training pipeline"
   schedule: {}
   flow_name: null
@@ -33,7 +33,7 @@ deployments:
   parameters: 
     artifact_dir: "artifacts"
     model_save_dir: "models"
-    env: "test"
+    env: "prod"
     sequence_length: 9
     test_size: 0.85
     genres_length: 4
