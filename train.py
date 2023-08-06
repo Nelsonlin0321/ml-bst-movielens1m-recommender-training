@@ -320,7 +320,7 @@ def bst_movielens1m_recommender_training_pipeline(artifact_dir=None,
         args.artifact_dir = artifact_dir
 
     if genres_length is not None:
-        args.genres_lengthenv = genres_length
+        args.genres_length = genres_length
 
     if embedding_dim is not None:
         args.embedding_dim = embedding_dim
