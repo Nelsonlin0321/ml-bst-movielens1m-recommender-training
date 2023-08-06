@@ -294,7 +294,7 @@ def bst_movielens1m_recommender_training_pipeline(env=None, dropout=None,
     if env is not None:
         args.env = env
 
-    print("Execution Env: {args.env}")
+    print(f"Execution Env: {args.env}")
 
     if dropout is not None:
         args.dropout = dropout
