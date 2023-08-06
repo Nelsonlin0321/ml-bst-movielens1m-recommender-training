@@ -5,3 +5,4 @@ pyarrow==12.0.1
 python-dotenv==1.0.0
 scikit-learn==1.3.0
 tqdm==4.65.0
+prefect==2.11.3
