@@ -282,8 +282,51 @@ def prepare_data(args):
 
 
 @flow(log_prints=True)
-def bst_movielens1m_recommender_training_pipeline():
+def bst_movielens1m_recommender_training_pipeline(env=None, dropout=None,
+                                                  epoches=None, test_size=None,
+                                                  batch_size=None, artifact_dir=None,
+                                                  embedding_dim=None, genres_length=None,
+                                                  learning_rate=None, model_save_dir=None,
+                                                  sequence_length=None):
+
     args = parser.parse_args()
+
+    if env is not None:
+        args.env = env
+
+    if dropout is not None:
+        args.dropout = dropout
+
+    if epoches is not None:
+        args.epoches = epoches
+
+    if test_size is not None:
+        args.test_size = test_size
+
+    if batch_size is not None:
+        args.batch_size = batch_size
+
+    if artifact_dir is not None:
+        args.artifact_dir = artifact_dir
+
+    if genres_length is not None:
+        args.env = genres_length
+
+    if embedding_dim is not None:
+        args.env = embedding_dim
+
+    if embedding_dim is not None:
+        args.env = embedding_dim
+
+    if learning_rate is not None:
+        args.learning_rate = learning_rate
+
+    if model_save_dir is not None:
+        args.model_save_dir = model_save_dir
+
+    if sequence_length is not None:
+        args.sequence_length = sequence_length
+
     assert args.env in {'test', 'dev', 'prod'}
     data_preparer = prepare_data(args=args)
     train(args=args, data_preparer=data_preparer)

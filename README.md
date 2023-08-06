@@ -70,3 +70,11 @@ Artifacts S3 Path: s3://s3-mlflow-artifacts-storage/mlflow/15/7697d9cdf0f341f8ad
 <img src='images/mlflow.png'><img>
 
 
+
+## Prefect Orchestraction Deployment:
+
+```sh
+prefect deploy
+prefect worker start --pool 'zooncamp-work-pool'
+prefect deployment run 'bst-movielens1m-recommender-training-pipeline/ml-bst-movielens1m-recommender-training'
+```
