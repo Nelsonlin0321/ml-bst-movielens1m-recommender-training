@@ -1,7 +1,7 @@
 version: '3'
 services:
   bst-movielens1m-recommender-training:
-    image: bst-movielens1m-recommender-training:latest
+    image: bst-movielens1m-recommender-training-pipeline:latest
     env_file: ./../.env
     cpus: 4
     shm_size: 4g

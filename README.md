@@ -41,14 +41,14 @@ python train.py --artifact_dir "./artifacts" \
 
 ## Run Using Docker Container
 ```sh
-docker build . -t bst-movielens1m-recommender-training:latest  --platform linux/arm64/v8
+docker build . -t bst-movielens1m-recommender-training-pipeline:latest  --platform linux/arm64/v8
 ```
 
 ```sh
 docker run -it \
         --env-file .env \
         --cpus=4 \
-        --shm-size=4g bst-movielens1m-recommender-training:latest \
+        --shm-size=4g bst-movielens1m-recommender-training-pipeline:latest \
         --artifact_dir "./artifacts" \
         --model_save_dir "./models" \
         --sequence_length 9 \
