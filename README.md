@@ -88,9 +88,15 @@ mlflow.register_model(model_uri=model_uri,name="bst-movielens1m-recommender-trai
 
 
 
-## Prefect Orchestraction Deployment:
+## Prefect Orchestration Deployment:
+[Prefect](https://www.prefect.io/cloud) is a centralized, single pane of glass for deploying, monitoring, and managing the data workflows
+
 
 - 1.config prefect.yaml file
+The yaml file define how you define your data workflow
+
+[Docs and Tutorial](https://docs.prefect.io/2.10.14/tutorial/deployments/)
+
 
 - 2.deployment
 ```sh
